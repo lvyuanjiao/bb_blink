@@ -2,7 +2,9 @@
 
 ##Circuit
 P9_27		------		LED+
+
 P9_45		------		resistor
+
 resistor	------		LED-
 
 use 220oh resistor
