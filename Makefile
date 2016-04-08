@@ -7,9 +7,10 @@ LIBDIR_APP_LOADER?=$(AM335_PRU_PACKAGE)/pru_sw/app_loader/lib
 INCDIR_APP_LOADER?=$(AM335_PRU_PACKAGE)/pru_sw/app_loader/include
 
 CFLAGS+= -Wall -I$(INCDIR_APP_LOADER) -D_XOPEN_SOURCE=500 $(ARM_COMPILE_FLAGS)
+CC=gcc
 
-export CXXFLAGS+=$(CFLAGS) -std=c++03
-export CXX=g++
+CXXFLAGS+=$(CFLAGS) -std=c++03
+CXX=g++
 
 LDFLAGS+=-lpthread  -lm
 PRUSS_LIBS=$(LIBDIR_APP_LOADER)/libprussdrv.a
@@ -19,7 +20,7 @@ TARGETS=pasm prudrv bb_blink bb_blink.bin
 all: $(TARGETS)
 
 bb_blink: bb_blink.c
-	$(CROSS_COMPILE)$(CXX) $(CFLAGS) -o $@ $^ $(PRUSS_LIBS) $(LDFLAGS)
+	$(CROSS_COMPILE)$(CC) $(CFLAGS) -o $@ $^ $(PRUSS_LIBS) $(LDFLAGS)
 
 bb_blink.bin: bb_blink.p
 	$(PASM) -b $^
