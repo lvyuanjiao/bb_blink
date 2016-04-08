@@ -30,7 +30,7 @@ int main (void)
    prussdrv_pruintc_init(&pruss_intc_initdata);
    
    // Load and execute the PRU program on the PRU
-   prussdrv_exec_program (PRU_NUM, "./pru_blink.bin");
+   prussdrv_exec_program (PRU_NUM, "./bb_blink.bin");
 
    // Wait for event completion from PRU, returns the PRU_EVTOUT_0 number
    int n = prussdrv_pru_wait_event (PRU_EVTOUT_0);

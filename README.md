@@ -2,6 +2,7 @@
 
 ##Clone and compile the code
 ```
+source <SDK_PATH>/linux-devkit/environment-setup
 git clone https://github.com/lvyuanjiao/bb_blink
 cd bb_blink
 git clone https://github.com/beagleboard/am335x_pru_package
