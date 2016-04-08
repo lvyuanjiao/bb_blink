@@ -1,5 +1,14 @@
 #bb blink
 
+##Circuit
+P9_27		------		LED+
+P9_45		------		resistor
+resistor	------		LED-
+
+use 220oh resistor
+
+![circuit](./circuit.jpg)
+
 ##Clone and compile the code
 ```
 source <SDK_PATH>/linux-devkit/environment-setup
