@@ -15,7 +15,7 @@ CXX=g++
 LDFLAGS+=-lpthread  -lm
 PRUSS_LIBS=$(LIBDIR_APP_LOADER)/libprussdrv.a
 
-TARGETS=pasm prudrv bb_blink bb_blink.bin
+TARGETS=prudrv bb_blink bb_blink.bin
 
 all: $(TARGETS)
 
@@ -27,10 +27,7 @@ bb_blink.bin: bb_blink.p
 
 prudrv:
 	cd $(AM335_PRU_PACKAGE)/pru_sw/app_loader/interface && make
-pasm:
-	cd $(AM335_PRU_PACKAGE)/pru_sw/utils/pasm_source && ./linuxbuild
 
 clean:
 	rm bb_blink bb_blink.bin
 	cd $(AM335_PRU_PACKAGE)/pru_sw/app_loader/interface && make clean
-	rm $(AM335_PRU_PACKAGE)/pru_sw/utils/pasm	

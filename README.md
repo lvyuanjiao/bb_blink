@@ -31,5 +31,7 @@ ssh root@beaglebone.local
 dtc -O dtb -o BB-BLINK-00A0.dtbo -b 0 -@ ./BB-BLINK.dts
 cp ./BB-BLINK-00A0.dtbo /lib/firmware/
 echo BB-BLINK > /sys/devices/bone_capemgr.*/slots
+echo 30 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio30/direction
 ./bb_blink
 ```

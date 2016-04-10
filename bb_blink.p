@@ -11,11 +11,33 @@
 #define PRU0_R31_VEC_VALID 32    // allows notification of program completion
 #define PRU_EVTOUT_0    3        // the event number that is sent back
 
+// Memory space mapped to the GPIO registers
+#define GPIO0	0x44e07000
+#define GPIO1	0x4804c000
+#define GPIO2	0x481ac000
+#define GPIO3	0x481ae000
+
+// GPIO Registers
+#define GPIO_OE 			0x134
+#define GPIO_DATAIN			0x138
+#define GPIO_DATAOUT		0x13c
+#define GPIO_CLEARDATAOUT	0x190
+#define GPIO_SETDATAOUT		0x194
+
+#define GPIO0_30	1<<30	//P9_11 gpio0[30] Output - bit 30
+
 START:
-	MOV		r1, MAX_COUNT
+	//Enable PRU write to GPIO
+	LBCO	r0, C4, 4, 4
+	CLR		r0, r0, 4
+	SBCO	r0, C4, 4, 4
+
+	MOV		r3, MAX_COUNT
 
 LEDON:
-	SET		r30.t5
+	MOV		r1, GPIO0 | GPIO_SETDATAOUT // load addr for GPIO Set data r1
+	MOV		r2, GPIO0_30	// write GPIO0_30 to r2
+	SBBO	r2, r1, 0, 4	// write r2 to the r1 address value - LED ON
 	MOV		r0, DELAY
 
 DELAYON:
@@ -23,14 +45,16 @@ DELAYON:
 	QBNE	DELAYON, r0, 0
 
 LEDOFF:
-	CLR		r30.t5
+	MOV		r1, GPIO0 | GPIO_CLEARDATAOUT // load addr for GPIO Set data r1
+	MOV		r2, GPIO0_30	// write GPIO0_30 to r2
+	SBBO	r2, r1, 0, 4	// write r2 to the r1 address value - LED OFF
 	MOV		r0, DELAY
 
 DELAYOFF:
 	SUB		r0, r0, 1
 	QBNE	DELAYOFF, r0, 0
-	SUB		r1, r1, 1
-	QBEQ	END, r1, 0
+	SUB		r3, r3, 1
+	QBEQ	END, r3, 0
 	CALL	LEDON
 
 END:
