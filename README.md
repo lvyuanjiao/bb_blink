@@ -1,7 +1,7 @@
 #bb blink
 
 ##Circuit
-P9_27		------		LED+
+P9_11		------		LED+
 
 P9_45		------		resistor
 
